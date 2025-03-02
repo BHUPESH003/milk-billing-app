@@ -40,6 +40,9 @@ const paymentSchema = z.object({
   amount: z.number().positive(),
 });
 
+app.get("/", (c) => {
+  return c.json({ message: "Welcome to the API" });
+});
 // 🔹 Admin Login (JWT Token Generation)
 app.post("/login", async (c: Context<{ Bindings: Env }>) => {
   try {
