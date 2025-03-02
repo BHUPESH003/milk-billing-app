@@ -22,7 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -36,7 +36,6 @@ const formSchema = z.object({
 
 export function AddCustomerForm() {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -60,19 +59,16 @@ export function AddCustomerForm() {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      toast({
-        title: "Customer added successfully",
+      toast.success("Customer added successfully", {
         description: `${values.name} has been added to your customers list.`,
       });
 
       navigate("/customers");
     } catch (error) {
       console.error("Error adding customer:", error);
-      toast({
-        title: "Error adding customer",
+      toast.error("Error adding customer", {
         description:
           "There was an error adding the customer. Please try again.",
-        variant: "destructive",
       });
     } finally {
       setIsLoading(false);

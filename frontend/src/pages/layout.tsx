@@ -1,9 +1,8 @@
 import type React from "react";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import "./globals.css";
 
 export default function RootLayout({
   children,
@@ -33,7 +32,7 @@ export default function RootLayout({
                 <main className="flex-1 p-4 md:p-6">{children}</main>
               </div>
             </div>
-            <Toaster />
+            <Toaster position="bottom-right" />
           </SidebarProvider>
         </ThemeProvider>
       </body>
