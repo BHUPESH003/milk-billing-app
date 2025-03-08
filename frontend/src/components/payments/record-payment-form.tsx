@@ -83,56 +83,52 @@ export function RecordPaymentForm() {
     },
   });
 
-  // Filter bills when customer changes
-  useEffect(() => {
-    const customerId = form.getValues("customerId");
-    if (customerId) {
-      const customerBills = bills.filter(
-        (bill) => bill.customerId === customerId
-      );
-      setFilteredBills(customerBills);
+  // useEffect(() => {
+  //   const customerId = form.watch("customerId"); // Use watch directly inside effect
+  //   if (!customerId) {
+  //     setFilteredBills([]);
+  //     return;
+  //   }
 
-      // If a bill ID is provided in the URL and it belongs to this customer, select it
-      const billIdFromUrl = searchParams[0].get("billId");
-      if (
-        billIdFromUrl &&
-        customerBills.some((bill) => bill.id === billIdFromUrl)
-      ) {
-        form.setValue("billId", billIdFromUrl);
+  //   const customerBills = bills.filter(
+  //     (bill) => bill.customerId === customerId
+  //   );
+  //   setFilteredBills(customerBills);
 
-        // Set the amount to the bill amount
-        const selectedBill = customerBills.find(
-          (bill) => bill.id === billIdFromUrl
-        );
-        if (selectedBill) {
-          form.setValue("amount", selectedBill.amount.toString());
-        }
-      } else if (customerBills.length > 0) {
-        // Select the first bill by default
-        form.setValue("billId", customerBills[0].id);
-        form.setValue("amount", customerBills[0].amount.toString());
-      }
-    } else {
-      setFilteredBills([]);
-    }
-  }, [
-    form.getValues,
-    form.setValue,
-    bills,
-    searchParams,
-    form.watch("customerId"),
-  ]);
+  //   const billIdFromUrl = searchParams[0].get("billId");
+  //   if (
+  //     billIdFromUrl &&
+  //     customerBills.some((bill) => bill.id === billIdFromUrl)
+  //   ) {
+  //     form.setValue("billId", billIdFromUrl, { shouldDirty: true });
+  //     const selectedBill = customerBills.find(
+  //       (bill) => bill.id === billIdFromUrl
+  //     );
+  //     if (selectedBill) {
+  //       form.setValue("amount", selectedBill.amount.toString(), {
+  //         shouldDirty: true,
+  //       });
+  //     }
+  //   } else if (customerBills.length > 0) {
+  //     form.setValue("billId", customerBills[0].id, { shouldDirty: true });
+  //     form.setValue("amount", customerBills[0].amount.toString(), {
+  //       shouldDirty: true,
+  //     });
+  //   }
+  // }, [bills, searchParams, form.watch("customerId")]); // Removed `form.getValues` & `form.setValue`
 
-  // Update amount when bill changes
-  useEffect(() => {
-    const billId = form.getValues("billId");
-    if (billId) {
-      const selectedBill = bills.find((bill) => bill.id === billId);
-      if (selectedBill) {
-        form.setValue("amount", selectedBill.amount.toString());
-      }
-    }
-  }, [form.getValues, form.setValue, bills, form.watch("customerId")]);
+  // // Update amount when bill changes
+  // useEffect(() => {
+  //   const billId = form.watch("billId");
+  //   if (!billId) return;
+
+  //   const selectedBill = bills.find((bill) => bill.id === billId);
+  //   if (selectedBill) {
+  //     form.setValue("amount", selectedBill.amount.toString(), {
+  //       shouldDirty: true,
+  //     });
+  //   }
+  // }, [bills, form.watch("billId")]); // Removed `form.getValues`
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);

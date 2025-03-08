@@ -1,6 +1,6 @@
 import { PageHeader } from "@/components/page-header";
-import { PaymentsFilter } from "@/components/paymnets/payments-filter";
-import { PaymentsList } from "@/components/paymnets/payments-list";
+import { PaymentsFilter } from "@/components/payments/payments-filter";
+import { PaymentsList } from "@/components/payments/payments-list";
 
 export default function PaymentsPage() {
   return (

@@ -3,7 +3,7 @@ import RootLayout from "./pages/layout";
 import Dashboard from "./pages/page";
 import CustomersPage from "./pages/customers/page";
 import { AddCustomerForm } from "./components/customers/add-customer-form";
-import { RecordPaymentForm } from "./components/paymnets/record-payment-form";
+import { RecordPaymentForm } from "./components/payments/record-payment-form";
 import { GenerateBillForm } from "./components/bills/generate-bill-form";
 import SettingsPage from "./pages/settings/page";
 import PaymentsPage from "./pages/payments/page";
